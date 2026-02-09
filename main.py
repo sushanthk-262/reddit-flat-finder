@@ -5,6 +5,7 @@ from datetime import datetime
 
 from config import *
 from filters import *
+from send_email import send_mail
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -65,3 +66,8 @@ for sub in SUBREDDITS:
 df = pd.DataFrame(results).drop_duplicates(subset=["url"])
 df.to_csv(OUTPUT_FILE, index=False)
 logging.info(f"Saved {len(df)} matches → {OUTPUT_FILE}")
+
+if len(df) > 0:
+    send_mail(OUTPUT_FILE)
+else:
+    logging.info("No matches — no email sent")
