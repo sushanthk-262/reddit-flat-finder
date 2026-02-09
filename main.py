@@ -1,9 +1,12 @@
 import requests
 import pandas as pd
+import logging
 from datetime import datetime
 
 from config import *
 from filters import *
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 HEADERS = {
     "User-Agent": "flat-finder-bot/1.0"
@@ -19,12 +22,12 @@ def fetch_subreddit(sub):
 results = []
 
 for sub in SUBREDDITS:
-    print(f"Scanning r/{sub}")
+    logging.info(f"Scanning r/{sub}")
 
     try:
         posts = fetch_subreddit(sub)
     except Exception as e:
-        print("Error:", sub, e)
+        logging.error(f"Error: {sub} {e}")
         continue
 
     for p in posts:
@@ -54,4 +57,4 @@ for sub in SUBREDDITS:
 
 df = pd.DataFrame(results).drop_duplicates(subset=["url"])
 df.to_csv(OUTPUT_FILE, index=False)
-print(f"\nSaved {len(df)} matches → {OUTPUT_FILE}")
+logging.info(f"Saved {len(df)} matches → {OUTPUT_FILE}")
