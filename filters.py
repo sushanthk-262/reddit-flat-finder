@@ -17,7 +17,7 @@ def rent_match(text, min_rent, max_rent):
 
 
 def keyword_match(text, words):
-    return any(w in text for w in words)
+    return any(re.search(r'\b' + w + r'\b', text) for w in words)
 
 
 def location_match(text, locations):
