@@ -12,9 +12,16 @@ HEADERS = {
     "User-Agent": "flat-finder-bot/1.0"
 }
 
+PROXIES = {
+    "http": "http://proxy-dmz.intel.com:912",
+    "https": "http://proxy-dmz.intel.com:912"
+}
+
+
 def fetch_subreddit(sub):
     url = f"https://www.reddit.com/r/{sub}/new.json?limit={POST_LIMIT}"
-    r = requests.get(url, headers=HEADERS, timeout=10)
+    r = requests.get(url, headers=HEADERS, timeout=10, proxies=PROXIES)
+
     r.raise_for_status()
     return r.json()["data"]["children"]
 
