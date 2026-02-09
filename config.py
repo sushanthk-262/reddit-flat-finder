@@ -14,7 +14,8 @@ KEYWORDS_REQUIRED = [
     "flatmate",
     "available",
     "rent",
-    "independent"
+    "independent",
+    "male"
 ]
 
 LOCATIONS = [
