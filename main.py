@@ -21,7 +21,7 @@ PROXIES = {
 
 def fetch_subreddit(sub):
     url = f"https://www.reddit.com/r/{sub}/new.json?limit={POST_LIMIT}"
-    r = requests.get(url, headers=HEADERS, timeout=10, proxies=PROXIES)
+    r = requests.get(url, headers=HEADERS, timeout=10)
 
     r.raise_for_status()
     return r.json()["data"]["children"]
