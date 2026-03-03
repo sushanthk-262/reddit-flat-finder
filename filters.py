@@ -1,4 +1,5 @@
 import re
+from config import KEYWORDS_REQUIRED, LOCATIONS, MIN_RENT, MAX_RENT
 
 def normalize(text):
     return text.lower().replace(",", " ")
@@ -22,3 +23,13 @@ def keyword_match(text, words):
 
 def location_match(text, locations):
     return any(loc in text for loc in locations)
+
+
+def matches_filters(text):
+    """Check if text matches all filter criteria"""
+    text = normalize(text)
+    return (
+        keyword_match(text, KEYWORDS_REQUIRED) and
+        location_match(text, LOCATIONS) and
+        rent_match(text, MIN_RENT, MAX_RENT)
+    )
